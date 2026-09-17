@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ranking - Gestión</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="nav-menu">
+    <a href="index.html">Ir a Búsqueda</a>
+  </div>
+
+  <div id="pantallaManage">
+    <h2>[ MODIFICAR DATOS ]</h2>
+
+    <div class="box">
+      <small>Nuevo Participante</small>
+      <div class="form-row">
+        <input type="text" id="inputNuevoNombre" placeholder="Nombre">
+        <input type="number" id="inputNuevoScore" placeholder="Score">
+        <button id="btnAgregar">Agregar</button>
+      </div>
+      <p id="textoErrorManage" class="error-msg"></p>
+    </div>
+
+    <div class="box">
+      <small>Participantes Actuales</small>
+      <ul id="listaManage"></ul>
+    </div>
+
+    <p id="textoSuccess" class="success-msg"></p>
+    <button id="btnGuardar">Guardar Cambios</button>
+  </div>
+
+  <script src="manage.js" defer></script>
+</body>
+</html>

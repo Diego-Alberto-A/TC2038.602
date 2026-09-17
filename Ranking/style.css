@@ -112,3 +112,40 @@ small {
   margin: 0;
   text-align: center;
 }
+
+.success-msg {
+  font-weight: bold;
+  color: #000;
+  border: 1px dashed #000;
+  padding: 10px;
+  display: none;
+}
+
+.form-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.form-row input {
+  margin: 0;
+}
+
+.form-row button {
+  margin: 0;
+  padding: 14px 20px;
+  width: auto;
+}
+
+.manage-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-delete {
+  margin: 0;
+  padding: 4px 8px;
+  width: auto;
+  font-size: 0.8rem;
+}
