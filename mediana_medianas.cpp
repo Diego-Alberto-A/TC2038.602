@@ -1,12 +1,17 @@
 #include <iostream>
 #include <vector>
 
-inline void ordenar_5(std::vector<int>& arr) {
-    auto const size = arr.size();
-    for (size_t i = 1; i < size; ++i) {
+inline void intercambiar(int& a, int& b) {
+    int aux = a;
+    a = b;
+    b = aux;
+}
+
+void ordenar_ventana(std::vector<int>& arr, int izq, int der) {
+    for (int i = izq + 1; i <= der; ++i) {
         int clave = arr[i];
-        size_t j = i;
-        while (j > 0 && arr[j - 1] > clave) {
+        int j = i;
+        while (j > izq && arr[j - 1] > clave) {
             arr[j] = arr[j - 1];
             --j;
         }
@@ -15,25 +20,31 @@ inline void ordenar_5(std::vector<int>& arr) {
 }
 
 
-int mediana_medianas(size_t SmallArraySize, std::vector<int>& nums){
-  auto const size{nums.size()};
-  
-  if(size <= SmallArraySize){
-    ordenar_5(nums);
-    return nums[size / 2];
-  }
+int bfprt_pivote(std::vector<int>& arr, int izq, int der) {
+    int n = der - izq + 1;
+    
+    if (n <= 5) {
+        ordenar_ventana(arr, izq, der);
+        return arr[izq + n / 2];
+    }
 
-  std::vector<int> medians;
-  medians.reserve((size + SmallArraySize - 1) / SmallArraySize);
-
-  for(int inicio{0};inicio<size; inicio+=SmallArraySize){
-    size_t limite_indice = (inicio + SmallArraySize < size) ? (inicio + SmallArraySize) : size;
+    int num_bloques = 0;
+    
+    for (int i = izq; i <= der; i += 5) {
+        int limite = (i + 4 < der) ? (i + 4) : der;
+        ordenar_ventana(arr, i, limite);
         
-    std::vector<int> sub(nums.begin() + inicio, nums.begin() + limite_indice);
-    medians.push_back(mediana_medianas(SmallArraySize, sub));
-  }
+        int mediana_indice = i + (limite - i) / 2;
+        intercambiar(arr[izq + num_bloques], arr[mediana_indice]);
+        num_bloques++;
+    }
 
-  return mediana_medianas(SmallArraySize, medians);
+    return bfprt_pivote(arr, izq, izq + num_bloques - 1);
+}
+
+
+int quickselect(std::vector<int>& nums, int izq, int der, int k){
+  return 0;
 }
 
 
@@ -48,8 +59,8 @@ int main() {
         std::cin>>nums[i];
     }
     
-    auto const mediana = mediana_medianas(SmallArraySize, nums);
-    std::cout <<"Pivote aproximado: "<< mediana << '\n';
+    auto const pivote = bfprt_pivote(nums, 0, tamano-1);
+    std::cout <<"Pivote aproximado: "<< pivote << '\n';
 
   return 0;
 }
