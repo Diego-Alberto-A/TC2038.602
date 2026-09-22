@@ -1,5 +1,3 @@
-const STORAGE_KEY = 'ranking.csv';
-
 const inputNombre = document.getElementById('inputNombre');
 const textoError = document.getElementById('textoError');
 const btnBuscar = document.getElementById('btnBuscar');
@@ -10,19 +8,13 @@ const pantallaResultados = document.getElementById('pantallaResultados');
 btnBuscar.addEventListener('click', handleSearch);
 btnVolver.addEventListener('click', () => toggleScreens(false));
 
-function getLatestData() {
-  const savedData = localStorage.getItem(STORAGE_KEY);
-  if (!savedData) return [];
-
-  const lines = savedData.trim().split('\n');
-  return lines.map(line => {
-    const [name, score] = line.split(',');
-    return { name: name.trim(), score: parseInt(score, 10) };
-  }).filter(player => player.name !== '' && !isNaN(player.score));
+async function getLatestData() {
+  const response = await fetch('/api/ranking');
+  return await response.json();
 }
 
-function handleSearch() {
-  const currentParticipants = getLatestData();
+async function handleSearch() {
+  const currentParticipants = await getLatestData();
 
   if (currentParticipants.length === 0) {
     return showError('No hay datos en el archivo ranking.csv');

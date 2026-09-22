@@ -1,5 +1,4 @@
 let participantsData = [];
-const STORAGE_KEY = 'ranking.csv';
 
 const inputNuevoNombre = document.getElementById('inputNuevoNombre');
 const inputNuevoScore = document.getElementById('inputNuevoScore');
@@ -13,23 +12,10 @@ window.addEventListener('DOMContentLoaded', loadInitialData);
 btnAgregar.addEventListener('click', addRecord);
 btnGuardar.addEventListener('click', saveModifiedData);
 
-function loadInitialData() {
-  const savedData = localStorage.getItem(STORAGE_KEY);
-  if (savedData) {
-    parseCSVString(savedData);
-  }
+async function loadInitialData() {
+  const response = await fetch('/api/ranking');
+  participantsData = await response.json();
   renderManageList();
-}
-
-function parseCSVString(rawText) {
-  const lines = rawText.trim().split('\n');
-  participantsData = lines.map(line => {
-    const [name, score] = line.split(',');
-    return {
-      name: name ? name.trim() : '',
-      score: parseInt(score, 10)
-    };
-  }).filter(player => player.name !== '' && !isNaN(player.score));
 }
 
 function renderManageList() {
@@ -79,14 +65,14 @@ function deleteRecord(index) {
   renderManageList();
 }
 
-function saveModifiedData() {
-  if (participantsData.length === 0) {
-    localStorage.removeItem(STORAGE_KEY);
-  } else {
-    const csvString = participantsData.map(p => `${p.name},${p.score}`).join('\n');
-    localStorage.setItem(STORAGE_KEY, csvString);
-  }
+async function saveModifiedData() {
+  await fetch('/api/ranking', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(participantsData),
+  });
 
   textoSuccess.innerText = 'Ranking actualizado!';
   textoSuccess.style.display = 'block';
+  
 }
