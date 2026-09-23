@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ranking - Búsqueda</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="nav-menu">
+    <a href="manage.html">Ir a Modificar Datos</a>
+  </div>
+
+  <div id="pantallaBusqueda">
+    <h2>[ BÚSQUEDA ]</h2>
+    <input type="text" id="inputNombre" placeholder="Ingresa tu nombre...">
+    <p id="textoError" class="error-msg"></p>
+    <button id="btnBuscar">Buscar Posición</button>
+  </div>
+
+  <div id="pantallaResultados" hidden>
+    <h2>[ RESULTADOS ]</h2>
+
+    <div class="box">
+      <h1 id="resRank"></h1>
+      <p><b id="resNombre"></b> - <span id="resScore"></span> pts</p>
+      <p>Delante: <b id="resDelante"></b> | Detrás: <b id="resDetras"></b></p>
+    </div>
+
+    <div class="box">
+      <small>Delante de ti</small>
+      <ul id="listaDelante"></ul>
+    </div>
+
+    <div class="box highlight">
+      <span id="marcadorNombre"></span>  <-AQUÍ ESTÁS TÚ
+    </div>
+
+    <div class="box">
+      <small>Detrás de ti</small>
+      <ul id="listaDetras"></ul>
+    </div>
+
+    <button id="btnVolver">Nueva Búsqueda</button>
+  </div>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
