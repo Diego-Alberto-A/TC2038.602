@@ -1,6 +1,6 @@
 # Compiling C
 
-C code has to be compiled into an executable before it can run. The general idea is:
+C  code has to be compiled into an executable before it can run. The general idea is:
 
 ```bash
 gcc file.c -o program.exe
